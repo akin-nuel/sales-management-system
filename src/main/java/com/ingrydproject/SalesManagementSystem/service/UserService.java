@@ -6,6 +6,9 @@ import com.ingrydproject.SalesManagementSystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +29,12 @@ public class UserService {
     }
 
     @Cacheable("allUsers")
-    public List<User> getAllUser(){
-        return userRepository.findAll();
+    //public List<User> getAllUser(){
+    //    return userRepository.findAll();
+   // }
+    public Page<User> findPage(int pageNumber){
+        Pageable pageable = PageRequest.of(pageNumber - 1,5);
+        return userRepository.findAll(pageable);
     }
 
     @Cacheable(value = "singleUsers", key = "#id")
