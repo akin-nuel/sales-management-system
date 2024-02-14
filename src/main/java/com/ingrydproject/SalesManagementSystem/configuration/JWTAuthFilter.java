@@ -1,9 +1,4 @@
-package com.ingrydproject.SalesManagementSystem.config;
-
-
-
-
-
+package com.ingrydproject.SalesManagementSystem.configuration;
 
 import com.ingrydproject.SalesManagementSystem.service.JWTUtils;
 import jakarta.servlet.FilterChain;
@@ -22,11 +17,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 
-@Component
+@Component   //component and bean are same.
 public class JWTAuthFilter extends OncePerRequestFilter {
 
     @Autowired
     private JWTUtils jwtUtils;
+
 
     @Autowired
     private UserDetailsService userDetailsService;

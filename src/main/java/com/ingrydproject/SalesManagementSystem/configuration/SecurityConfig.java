@@ -1,7 +1,7 @@
-package com.ingrydproject.SalesManagementSystem.config;
+package com.ingrydproject.SalesManagementSystem.configuration;
 
 
-import com.ingrydproject.SalesManagementSystem.config.JWTAuthFilter;
+
 import com.ingrydproject.SalesManagementSystem.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +25,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     @Autowired
-    private UserInfoService ourUserDetailService;
+    private UserInfoService userInfoService;
 
     @Autowired
     private JWTAuthFilter jwtAuthFilter;
@@ -36,7 +36,7 @@ public class SecurityConfig {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorization) -> authorization
                         .requestMatchers("/auth/**", "/public/**").permitAll()
-                        .requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
+                        .requestMatchers("/api/v1/User**").hasAnyAuthority("ADMIN")
                         .requestMatchers("/user/**").hasAnyAuthority("USER")
                         .requestMatchers("/adminuser/**").hasAnyAuthority("ADMIN","USER")
                         .anyRequest()
@@ -54,7 +54,7 @@ public class SecurityConfig {
     public AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-        daoAuthenticationProvider.setUserDetailsService(ourUserDetailService);
+        daoAuthenticationProvider.setUserDetailsService(userInfoService);
 
         return daoAuthenticationProvider;
     }

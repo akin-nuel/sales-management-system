@@ -2,7 +2,7 @@ package com.ingrydproject.SalesManagementSystem.service;
 
 
 import com.ingrydproject.SalesManagementSystem.dto.ReqRes;
-import com.ingrydproject.SalesManagementSystem.model.Users;
+import com.ingrydproject.SalesManagementSystem.model.User;
 import com.ingrydproject.SalesManagementSystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,13 +25,13 @@ public class AuthService {
     public ReqRes signup(ReqRes registrationRequest){
         ReqRes response = new ReqRes();
         try {
-            Users ourUsers = new Users();
-            ourUsers.setEmail(registrationRequest.getEmail());
-            ourUsers.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
-            ourUsers.setRole(registrationRequest.getRole());
-            Users ourUserResult = userRepository.save(ourUsers);
-            if (ourUserResult != null && ourUserResult.getId() > 0)  {
-                response.setUsers(ourUserResult);
+            User user = new User();
+            user.setEmail(registrationRequest.getEmail());
+            user.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
+            user.setRole(registrationRequest.getRole());
+            User userResult= userRepository.save(user);
+            if (userResult != null && userResult.getId() > 0)  {
+                response.setUser(userResult);
                 response.setMessage("User Saved Successfully");
                 response.setStatusCode(200);
             }
@@ -63,7 +63,7 @@ public class AuthService {
     public ReqRes refreshToken(ReqRes refreshTokenRequest){
         ReqRes response = new ReqRes();
         String ourEmail = jwtUtils.extractUsername(refreshTokenRequest.getToken());
-        Users users = userRepository.findByEmail(ourEmail).orElseThrow();
+        User users = userRepository.findByEmail(ourEmail).orElseThrow();
         if (jwtUtils.isTokenValid(refreshTokenRequest.getToken(),users)){
             var jwt = jwtUtils.generateToken(users);
             response.setStatusCode(200);
@@ -76,4 +76,3 @@ public class AuthService {
         return response;
     }
 }
-

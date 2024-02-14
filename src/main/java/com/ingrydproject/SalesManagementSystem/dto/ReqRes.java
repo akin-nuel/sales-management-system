@@ -1,16 +1,22 @@
 package com.ingrydproject.SalesManagementSystem.dto;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.ingrydproject.SalesManagementSystem.model.Product;
 import com.ingrydproject.SalesManagementSystem.model.Role;
-import com.ingrydproject.SalesManagementSystem.model.Users;
+import com.ingrydproject.SalesManagementSystem.model.User;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 
 import java.util.List;
 
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class  ReqRes {
+public class ReqRes {
     private int statusCode;
     private String error;
     private String message;
@@ -19,15 +25,16 @@ public class  ReqRes {
     private String expirationTime;
     private String name;
     private String email;
+    @Enumerated(EnumType.STRING)
     private Role role;
     private String password;
     private List<Product> products;
-    private Users users;
+    private User user;
 
     public ReqRes() {
     }
 
-    public ReqRes(int statusCode, String error, String message, String token, String refreshToken, String expirationTime, String name, String email, Role role, String password, List<Product> products, Users users) {
+    public ReqRes(int statusCode, String error, String message, String token, String refreshToken, String expirationTime, String name, String email, Role role, String password, List<Product> products, User user) {
         this.statusCode = statusCode;
         this.error = error;
         this.message = message;
@@ -39,7 +46,7 @@ public class  ReqRes {
         this.role = role;
         this.password = password;
         this.products = products;
-        this.users = users;
+        this.user = user;
     }
 
     public int getStatusCode() {
@@ -130,11 +137,11 @@ public class  ReqRes {
         this.products = products;
     }
 
-    public Users getUsers() {
-        return users;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsers(Users users) {
-        this.users = users;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

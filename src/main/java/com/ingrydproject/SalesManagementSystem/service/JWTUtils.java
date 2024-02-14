@@ -2,7 +2,6 @@ package com.ingrydproject.SalesManagementSystem.service;
 
 
 
-
 import com.ingrydproject.SalesManagementSystem.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
