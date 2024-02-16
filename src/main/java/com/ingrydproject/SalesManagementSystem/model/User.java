@@ -12,8 +12,9 @@ import org.hibernate.validator.constraints.Length;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "student", uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
+@Table(name = "User", uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
 @Data
+@Entity
 public class User {
 
     @Id

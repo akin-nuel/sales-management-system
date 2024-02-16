@@ -1,7 +1,12 @@
 package com.ingrydproject.SalesManagementSystem.dto;
 
-import lombok.Getter;
 
+import com.ingrydproject.SalesManagementSystem.model.Category;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 @Getter
 public class ProductDto {

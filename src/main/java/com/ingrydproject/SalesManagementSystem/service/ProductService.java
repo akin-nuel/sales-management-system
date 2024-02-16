@@ -24,12 +24,12 @@ public class ProductService {
     @Autowired
     CategoryRepository categoryRepository;
 
-    @Cacheable(value = "product")
+    @Cacheable(value = "products")
     public List<Product> getAllProduct(){
         return productRepository.findAll();
     }
 
-    @CacheEvict(value = "product", allEntries = true)
+    @CacheEvict(value = "products", allEntries = true)
     public String addProduct(ProductDto productDto){
         Category category = categoryRepository.findCategoryById(productDto.getCategory_id());
         Product product1 = new Product();
@@ -44,7 +44,7 @@ public class ProductService {
         return "Product successfully added";
     }
 
-    @CacheEvict(value = {"product", "id"}, allEntries = true)
+    @CacheEvict(value = {"products", "id"}, allEntries = true)
     public String updateProduct(Long id, ProductDto productDto){
         Category category = categoryRepository.findCategoryById(productDto.getCategory_id());
         Product update = findProductById(id);
@@ -59,7 +59,7 @@ public class ProductService {
         return "Product successfully updated";
     }
 
-    @CacheEvict(value = {"product", "id"}, allEntries = true)
+    @CacheEvict(value = {"products", "id"}, allEntries = true)
     public String deleteProduct(Long id){
         productRepository.deleteById(id);
         return "Product successfully deleted";
