@@ -1,5 +1,6 @@
 package com.ingrydproject.SalesManagementSystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -8,7 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -21,12 +22,14 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "email", nullable = false)
     private User user;
 
-    @Column(name = "date_time")
-    LocalDateTime localDateTime = LocalDateTime.now();
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "order_date")
+    private Date date;
 
     @Column(name = "order_status")
     @NotBlank(message = "Enter the status of the order")
